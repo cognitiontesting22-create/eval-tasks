@@ -1,0 +1,34 @@
+{
+  "id": "hono-5236",
+  "repo": "hono",
+  "upstream_repo": "honojs/hono",
+  "fork_url": "https://github.com/cognitiontesting22-create/hono",
+  "branch": "eval/hono-5236-base",
+  "base_sha": "ef0739d5f6e83242ba2b64c1365c9f96738933a1",
+  "merge_sha": "63bbcf508c74d9fe7a3e20f4dfe7ffacc566dcce",
+  "upstream_pr": "https://github.com/honojs/hono/pull/5236",
+  "upstream_issue": "https://github.com/honojs/hono/issues/5219",
+  "merged_at": "2026-08-17T00:37:48Z",
+  "difficulty": "hard",
+  "spare": false,
+  "language": "TypeScript",
+  "toolchain": {
+    "bun": "1.2.19",
+    "node": "24.7.0",
+    "vitest": "from bun.lock"
+  },
+  "test_command": "bun install --frozen-lockfile && bun run test",
+  "hidden_test_fails_at_base": true,
+  "hidden_test_passes_at_merge": true,
+  "hidden_test_fails_on_probe": true,
+  "probe_description": "Expands a trailing `/prefix*` into `/prefix` plus `/prefix/*` only, so segment-level prefixes such as `/assets-v2` are not matched.",
+  "spoilers_stripped": [
+    "PR body's mention of competing PRs #5220 and #5230",
+    "PR body's description of the TrieRouter terminal-segment mechanism and bundle-size note",
+    "PR/issue numbers and links"
+  ],
+  "trace_source": "none, built from PR and issue",
+  "mcp_removed": [],
+  "timeout_minutes": 45,
+  "prompt_word_count": 288
+}

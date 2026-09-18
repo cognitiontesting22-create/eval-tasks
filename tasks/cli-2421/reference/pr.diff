@@ -1,0 +1,78 @@
+diff --git a/command.go b/command.go
+index 3c3eb043..02f9f766 100644
+--- a/command.go
++++ b/command.go
+@@ -310,12 +310,25 @@ func (cmd *Command) VisiblePersistentFlags() []Flag {
+ 		return nil
+ 	}
+ 	var flags []Flag
+-	for _, fl := range cmd.Root().Flags {
+-		pfl, ok := fl.(LocalFlag)
+-		if !ok || pfl.IsLocal() {
+-			continue
++	lineage := cmd.Lineage()
++	for i := len(lineage) - 1; i > 0; i-- {
++		for _, fl := range lineage[i].allFlags() {
++			pfl, ok := fl.(LocalFlag)
++			if !ok || pfl.IsLocal() {
++				continue
++			}
++			applies := true
++			for _, name := range fl.Names() {
++				if cmd.lookupFlag(name) != fl {
++					applies = false
++					break
++				}
++			}
++			if !applies {
++				continue
++			}
++			flags = append(flags, fl)
+ 		}
+-		flags = append(flags, fl)
+ 	}
+ 	return visibleFlags(flags)
+ }
+diff --git a/help_test.go b/help_test.go
+index 845f940a..a56c98f3 100644
+--- a/help_test.go
++++ b/help_test.go
+@@ -904,6 +904,38 @@ GLOBAL OPTIONS:
+ 	assert.Contains(t, output.String(), expected, "expected output to include global options")
+ }
+ 
++func TestShowSubcommandHelp_InheritedPersistentOptions(t *testing.T) {
++	cmd := &Command{
++		Flags: []Flag{
++			&StringFlag{Name: "root-persistent"},
++			&StringFlag{Name: "shared", Usage: "from root"},
++		},
++		Commands: []*Command{
++			{
++				Name: "mid",
++				Flags: []Flag{
++					&StringFlag{Name: "mid-persistent"},
++					&StringFlag{Name: "shared", Usage: "from intermediate"},
++				},
++				Commands: []*Command{
++					{
++						Name: "leaf",
++					},
++				},
++			},
++		},
++	}
++
++	output := &bytes.Buffer{}
++	cmd.Writer = output
++
++	require.NoError(t, cmd.Run(buildTestContext(t), []string{"root", "mid", "leaf", "--help"}))
++	assert.Contains(t, output.String(), "--root-persistent string")
++	assert.Contains(t, output.String(), "--mid-persistent string")
++	assert.Contains(t, output.String(), "from intermediate")
++	assert.NotContains(t, output.String(), "from root")
++}
++
+ func TestShowSubcommandHelp_SubcommandUsageText(t *testing.T) {
+ 	cmd := &Command{
+ 		Commands: []*Command{

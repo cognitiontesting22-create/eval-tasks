@@ -1,0 +1,33 @@
+{
+  "id": "hono-4922",
+  "repo": "hono",
+  "upstream_repo": "honojs/hono",
+  "fork_url": "https://github.com/cognitiontesting22-create/hono",
+  "branch": "eval/hono-4922-base",
+  "base_sha": "26f8c33f23e6151873d165107f2dbcadf1204d15",
+  "merge_sha": "ff7522fdccef4a55f6aa326ece705c0cd7cd8031",
+  "upstream_pr": "https://github.com/honojs/hono/pull/4922",
+  "upstream_issue": "https://github.com/honojs/hono/issues/4916",
+  "merged_at": "2026-05-16T09:17:36Z",
+  "difficulty": "easy",
+  "spare": false,
+  "language": "TypeScript",
+  "toolchain": {
+    "bun": "1.2.19",
+    "node": "24.7.0",
+    "vitest": "from bun.lock"
+  },
+  "test_command": "bun install --frozen-lockfile && bun run test",
+  "hidden_test_fails_at_base": true,
+  "hidden_test_passes_at_merge": true,
+  "hidden_test_fails_on_probe": true,
+  "probe_description": "Implements first-wins by skipping a name whose value is already defined on the result object; since the object still inherits from Object.prototype, names such as `toString`/`constructor`/`hasOwnProperty` are treated as already present and dropped.",
+  "spoilers_stripped": [
+    "PR body's commit-level description of the change (Object.create(null) for prototype collisions)",
+    "PR/issue numbers and links"
+  ],
+  "trace_source": "none, built from PR and issue",
+  "mcp_removed": [],
+  "timeout_minutes": 45,
+  "prompt_word_count": 276
+}

@@ -1,0 +1,32 @@
+{
+  "id": "cli-2426",
+  "repo": "cli",
+  "upstream_repo": "urfave/cli",
+  "fork_url": "https://github.com/cognitiontesting22-create/cli",
+  "branch": "eval/cli-2426-base",
+  "base_sha": "4c05a5cb71d9c95b596ea2ab33e3ad369f5b03a9",
+  "merge_sha": "7fc67828d030c0892f7504df3ac29ce4a59979ba",
+  "upstream_pr": "https://github.com/urfave/cli/pull/2426",
+  "upstream_issue": "https://github.com/urfave/cli/issues/2248",
+  "merged_at": "2026-09-14T14:29:02Z",
+  "difficulty": "medium",
+  "spare": false,
+  "language": "Go",
+  "toolchain": {
+    "go": "1.22.12 linux/amd64"
+  },
+  "test_command": "go test ./...",
+  "hidden_test_fails_at_base": true,
+  "hidden_test_passes_at_merge": true,
+  "hidden_test_fails_on_probe": true,
+  "probe_description": "Always reads the final argument as the flag being completed; fixes child commands but breaks root-level completion, where the completion marker is still the final argument.",
+  "spoilers_stripped": [
+    "Issue comment / PR body explanation that the child's parsed args no longer contain the completion marker while os.Args does",
+    "Function name DefaultCompleteWithFlags, file help.go, and completionFlag constant",
+    "PR/issue numbers and links"
+  ],
+  "trace_source": "none, built from PR and issue",
+  "mcp_removed": [],
+  "timeout_minutes": 45,
+  "prompt_word_count": 294
+}

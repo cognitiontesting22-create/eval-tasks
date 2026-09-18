@@ -1,0 +1,14 @@
+diff --git a/src/click/core.py b/src/click/core.py
+index 3544c03..fd03e22 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -2609,6 +2609,9 @@ class Parameter(ABC):
+         with augment_usage_errors(ctx, param=self):
+             value, source = self.consume_value(ctx, opts)
+ 
++            # Make the source visible to type conversion and callbacks.
++            ctx.set_parameter_source(self.name, source)
++
+             # Display a deprecation warning if necessary.
+             if (
+                 self.deprecated

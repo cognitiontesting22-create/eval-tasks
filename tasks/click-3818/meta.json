@@ -1,0 +1,35 @@
+{
+  "id": "click-3818",
+  "repo": "click",
+  "upstream_repo": "pallets/click",
+  "fork_url": "https://github.com/cognitiontesting22-create/click",
+  "branch": "eval/click-3818-base",
+  "base_sha": "b47c0529e99129d4785fecc2cb39a8ec8b4aa5f8",
+  "merge_sha": "00f257bb8e714064bea16425007543bbc0800445",
+  "upstream_pr": "https://github.com/pallets/click/pull/3818",
+  "upstream_issue": "https://github.com/pallets/click/issues/3802",
+  "merged_at": "2026-08-31T23:42:24Z",
+  "difficulty": "hard",
+  "spare": false,
+  "language": "Python",
+  "toolchain": {
+    "python": "3.10.12",
+    "uv": "0.12.16 (project pins uv 0.11.3 via lockfile tooling)",
+    "pytest": "from uv.lock"
+  },
+  "test_command": "uv sync --locked --group tests && uv run pytest -v --tb=short",
+  "hidden_test_fails_at_base": true,
+  "hidden_test_passes_at_merge": true,
+  "hidden_test_fails_on_probe": true,
+  "probe_description": "Only wraps the final `Aborted!` echo in a KeyboardInterrupt guard; a late interrupt during ClickException reporting or during the exit path still escapes / changes the exit code.",
+  "spoilers_stripped": [
+    "PR body's reference to the pager policy (#351) and the quoted pager code",
+    "References to prior PRs #2380 and #2584 as the origin of the non-standalone Abort / `Aborted!` message policies (kept only as behavioral requirements)",
+    "PR body's description of restructuring main()'s try/except cascade into collect-then-exit",
+    "PR/issue numbers and links"
+  ],
+  "trace_source": "none, built from PR and issue",
+  "mcp_removed": [],
+  "timeout_minutes": 45,
+  "prompt_word_count": 299
+}

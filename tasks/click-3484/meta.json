@@ -1,0 +1,35 @@
+{
+  "id": "click-3484",
+  "repo": "click",
+  "upstream_repo": "pallets/click",
+  "fork_url": "https://github.com/cognitiontesting22-create/click",
+  "branch": "eval/click-3484-base",
+  "base_sha": "4b24a6c8f6658ef89fd6db4dcaf8ee88eef75dfa",
+  "merge_sha": "d42f15b71757de791a5781fb179fd972da9169f5",
+  "upstream_pr": "https://github.com/pallets/click/pull/3484",
+  "upstream_issue": "https://github.com/pallets/click/issues/3458",
+  "merged_at": "2026-05-21T15:20:36Z",
+  "difficulty": "hard",
+  "spare": true,
+  "language": "Python",
+  "toolchain": {
+    "python": "3.10.12",
+    "uv": "0.12.16 (project pins uv 0.11.3 via lockfile tooling)",
+    "pytest": "from uv.lock"
+  },
+  "test_command": "uv sync --locked --group tests && uv run pytest -v --tb=short",
+  "hidden_test_fails_at_base": true,
+  "hidden_test_passes_at_merge": true,
+  "hidden_test_fails_on_probe": true,
+  "probe_description": "Records the parameter source before conversion/callback but does not re-arbitrate it afterwards, so feature-switch flags whose winner comes from the environment/default map while a sibling has a different source end with the wrong source.",
+  "spoilers_stripped": [
+    "PR body's root cause (source recorded after processing since #3403/#3404) and the record-early-then-restore fix",
+    "Names of the touched internals (set_parameter_source timing, consume_value/process_value, handle_parse_result) and test names",
+    "Reference to pallets/flask#6025 (kept only as the Flask-style behavioral scenario)",
+    "PR/issue numbers and links"
+  ],
+  "trace_source": "none, built from PR and issue",
+  "mcp_removed": [],
+  "timeout_minutes": 45,
+  "prompt_word_count": 294
+}

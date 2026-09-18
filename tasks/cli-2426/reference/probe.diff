@@ -1,0 +1,19 @@
+diff --git a/help.go b/help.go
+index c91865ab..c4cb8439 100644
+--- a/help.go
++++ b/help.go
+@@ -257,11 +257,9 @@ func DefaultCompleteWithFlags(ctx context.Context, cmd *Command) {
+ 	}
+ 	argsLen := len(args)
+ 	lastArg := ""
+-	// parent command will have --generate-shell-completion so we need
+-	// to account for that
+-	if argsLen > 1 {
+-		lastArg = args[argsLen-2]
+-	} else if argsLen > 0 {
++	// The completion marker has already been stripped from the arguments,
++	// so the flag being completed is always the final one.
++	if argsLen > 0 {
+ 		lastArg = args[argsLen-1]
+ 	}
+ 
