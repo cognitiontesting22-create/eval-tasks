@@ -1,0 +1,15 @@
+diff --git a/src/utils/cookie.ts b/src/utils/cookie.ts
+index f9147fe2..5da9f8e8 100644
+--- a/src/utils/cookie.ts
++++ b/src/utils/cookie.ts
+@@ -116,6 +116,10 @@ export const parse = (cookie: string, name?: string): Cookie => {
+     if ((name && name !== cookieName) || !validCookieNameRegEx.test(cookieName)) {
+       continue
+     }
++    // First occurrence wins, like Express's cookie parser: only assign once.
++    if (parsedCookie[cookieName] !== undefined) {
++      continue
++    }
+ 
+     let cookieValue = trimCookieWhitespace(pairStr.substring(valueStartPos + 1))
+     if (cookieValue.startsWith('"') && cookieValue.endsWith('"')) {

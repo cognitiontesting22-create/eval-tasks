@@ -1,0 +1,21 @@
+diff --git a/src/router/trie-router/router.ts b/src/router/trie-router/router.ts
+index 65b99788..a3b7ed0b 100644
+--- a/src/router/trie-router/router.ts
++++ b/src/router/trie-router/router.ts
+@@ -11,6 +11,16 @@ export class TrieRouter<T> implements Router<T> {
+   }
+ 
+   add(method: string, path: string, handler: T) {
++    // Suffix wildcard (`/assets*`): the trie only understands a standalone
++    // `*` segment, so expand it into the bare prefix and `prefix/*`.
++    const lastSlash = path.lastIndexOf('/')
++    const last = path.slice(lastSlash + 1)
++    if (last.length > 1 && last.endsWith('*')) {
++      const prefix = path.slice(0, -1)
++      this.add(method, prefix, handler)
++      this.add(method, prefix + '/*', handler)
++      return
++    }
+     const results = checkOptionalParameter(path)
+     if (results) {
+       for (let i = 0, len = results.length; i < len; i++) {

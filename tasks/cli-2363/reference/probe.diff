@@ -1,0 +1,37 @@
+diff --git a/command.go b/command.go
+index 4cd907a5..1f3f610d 100644
+--- a/command.go
++++ b/command.go
+@@ -153,6 +153,8 @@ type Command struct {
+ 	parsedArgs Args
+ 	// track state of error handling
+ 	isInError bool
++	// set when a direct child displayed help instead of running
++	helpShownForChild bool
+ 	// track state of defaults
+ 	didSetupDefaults bool
+ 	// whether in shell completion mode
+diff --git a/command_run.go b/command_run.go
+index b5bc005a..d674fa65 100644
+--- a/command_run.go
++++ b/command_run.go
+@@ -210,6 +210,9 @@ func (cmd *Command) run(ctx context.Context, osArgs []string) (_ context.Context
+ 	}
+ 
+ 	if cmd.checkHelp() {
++		if cmd.parent != nil {
++			cmd.parent.helpShownForChild = true
++		}
+ 		return ctx, helpCommandAction(ctx, cmd)
+ 	} else {
+ 		tracef("no help is wanted (cmd=%[1]q)", cmd.Name)
+@@ -234,6 +237,9 @@ func (cmd *Command) run(ctx context.Context, osArgs []string) (_ context.Context
+ 
+ 	if cmd.After != nil && !cmd.Root().shellCompletion {
+ 		defer func() {
++			if cmd.helpShownForChild {
++				return
++			}
+ 			if err := cmd.After(ctx, cmd); err != nil {
+ 				err = cmd.handleExitCoder(ctx, err)
+ 

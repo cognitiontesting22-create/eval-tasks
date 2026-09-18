@@ -1,0 +1,24 @@
+diff --git a/command.go b/command.go
+index 3c3eb043..7a142cf5 100644
+--- a/command.go
++++ b/command.go
+@@ -310,12 +310,14 @@ func (cmd *Command) VisiblePersistentFlags() []Flag {
+ 		return nil
+ 	}
+ 	var flags []Flag
+-	for _, fl := range cmd.Root().Flags {
+-		pfl, ok := fl.(LocalFlag)
+-		if !ok || pfl.IsLocal() {
+-			continue
++	for c := cmd.parent; c != nil; c = c.parent {
++		for _, fl := range c.Flags {
++			pfl, ok := fl.(LocalFlag)
++			if !ok || pfl.IsLocal() {
++				continue
++			}
++			flags = append(flags, fl)
+ 		}
+-		flags = append(flags, fl)
+ 	}
+ 	return visibleFlags(flags)
+ }

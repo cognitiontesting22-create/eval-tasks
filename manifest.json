@@ -1,0 +1,76 @@
+{
+  "tasks": [
+    {
+      "id": "click-3818",
+      "repo": "click",
+      "fork_url": "https://github.com/cognitiontesting22-create/click",
+      "branch": "eval/click-3818-base",
+      "base_sha": "b47c0529e99129d4785fecc2cb39a8ec8b4aa5f8",
+      "difficulty": "hard",
+      "spare": false
+    },
+    {
+      "id": "click-3678",
+      "repo": "click",
+      "fork_url": "https://github.com/cognitiontesting22-create/click",
+      "branch": "eval/click-3678-base",
+      "base_sha": "8c1a0a7abbc1c36f70d1f65f3604acc46c5ce6ab",
+      "difficulty": "medium",
+      "spare": false
+    },
+    {
+      "id": "click-3484",
+      "repo": "click",
+      "fork_url": "https://github.com/cognitiontesting22-create/click",
+      "branch": "eval/click-3484-base",
+      "base_sha": "4b24a6c8f6658ef89fd6db4dcaf8ee88eef75dfa",
+      "difficulty": "hard",
+      "spare": true
+    },
+    {
+      "id": "hono-5236",
+      "repo": "hono",
+      "fork_url": "https://github.com/cognitiontesting22-create/hono",
+      "branch": "eval/hono-5236-base",
+      "base_sha": "ef0739d5f6e83242ba2b64c1365c9f96738933a1",
+      "difficulty": "hard",
+      "spare": false
+    },
+    {
+      "id": "hono-4922",
+      "repo": "hono",
+      "fork_url": "https://github.com/cognitiontesting22-create/hono",
+      "branch": "eval/hono-4922-base",
+      "base_sha": "26f8c33f23e6151873d165107f2dbcadf1204d15",
+      "difficulty": "easy",
+      "spare": false
+    },
+    {
+      "id": "cli-2426",
+      "repo": "cli",
+      "fork_url": "https://github.com/cognitiontesting22-create/cli",
+      "branch": "eval/cli-2426-base",
+      "base_sha": "4c05a5cb71d9c95b596ea2ab33e3ad369f5b03a9",
+      "difficulty": "medium",
+      "spare": false
+    },
+    {
+      "id": "cli-2421",
+      "repo": "cli",
+      "fork_url": "https://github.com/cognitiontesting22-create/cli",
+      "branch": "eval/cli-2421-base",
+      "base_sha": "dfcc6ec88024dfce2c191036cc1b5611a1ec51d4",
+      "difficulty": "medium",
+      "spare": false
+    },
+    {
+      "id": "cli-2363",
+      "repo": "cli",
+      "fork_url": "https://github.com/cognitiontesting22-create/cli",
+      "branch": "eval/cli-2363-base",
+      "base_sha": "2c38e7b6c7e3b25df239997b37111e639cb26b0f",
+      "difficulty": "easy",
+      "spare": true
+    }
+  ]
+}

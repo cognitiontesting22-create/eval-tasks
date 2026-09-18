@@ -1,0 +1,94 @@
+diff --git a/command_run.go b/command_run.go
+index b5bc005a..8d590715 100644
+--- a/command_run.go
++++ b/command_run.go
+@@ -9,6 +9,8 @@ import (
+ 	"unicode"
+ )
+ 
++type helpShownKey struct{}
++
+ func (cmd *Command) parseArgsFromStdin() ([]string, error) {
+ 	type state int
+ 	const (
+@@ -176,6 +178,7 @@ func (cmd *Command) run(ctx context.Context, osArgs []string) (_ context.Context
+ 
+ 		cmd.isInError = true
+ 		if cmd.checkHelp() {
++			ctx = context.WithValue(ctx, helpShownKey{}, true)
+ 			if cmd.parent == nil {
+ 				_ = ShowRootCommandHelp(cmd)
+ 			} else {
+@@ -210,6 +213,7 @@ func (cmd *Command) run(ctx context.Context, osArgs []string) (_ context.Context
+ 	}
+ 
+ 	if cmd.checkHelp() {
++		ctx = context.WithValue(ctx, helpShownKey{}, true)
+ 		return ctx, helpCommandAction(ctx, cmd)
+ 	} else {
+ 		tracef("no help is wanted (cmd=%[1]q)", cmd.Name)
+@@ -234,6 +238,9 @@ func (cmd *Command) run(ctx context.Context, osArgs []string) (_ context.Context
+ 
+ 	if cmd.After != nil && !cmd.Root().shellCompletion {
+ 		defer func() {
++			if ctx.Value(helpShownKey{}) != nil {
++				return
++			}
+ 			if err := cmd.After(ctx, cmd); err != nil {
+ 				err = cmd.handleExitCoder(ctx, err)
+ 
+diff --git a/command_test.go b/command_test.go
+index acc24056..6b8d9339 100644
+--- a/command_test.go
++++ b/command_test.go
+@@ -1810,6 +1810,50 @@ func TestCommand_AfterFunc(t *testing.T) {
+ 	assert.Equal(t, 0, counts.SubCommand, "Subcommand not executed when expected")
+ }
+ 
++func TestCommand_AfterNotCalledOnSubcommandHelp(t *testing.T) {
++	var afterCalled bool
++	cmd := &Command{
++		After: func(_ context.Context, _ *Command) error {
++			afterCalled = true
++			return nil
++		},
++		Commands: []*Command{
++			{
++				Name: "sub",
++				Action: func(context.Context, *Command) error {
++					return nil
++				},
++			},
++		},
++	}
++
++	err := cmd.Run(buildTestContext(t), []string{"app", "sub", "--help"})
++	require.NoError(t, err)
++	assert.False(t, afterCalled, "After should not be called when --help is passed to subcommand")
++}
++
++func TestCommand_AfterStillCalledOnNormalSubcommand(t *testing.T) {
++	var afterCalled bool
++	cmd := &Command{
++		After: func(_ context.Context, _ *Command) error {
++			afterCalled = true
++			return nil
++		},
++		Commands: []*Command{
++			{
++				Name: "sub",
++				Action: func(context.Context, *Command) error {
++					return nil
++				},
++			},
++		},
++	}
++
++	err := cmd.Run(buildTestContext(t), []string{"app", "sub"})
++	require.NoError(t, err)
++	assert.True(t, afterCalled, "After should be called on normal subcommand execution")
++}
++
+ func TestCommandNoHelpFlag(t *testing.T) {
+ 	oldFlag := HelpFlag
+ 	defer func() {

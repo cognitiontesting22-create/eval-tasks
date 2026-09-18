@@ -1,0 +1,25 @@
+diff --git a/src/click/core.py b/src/click/core.py
+index 6de4216..e2f12f3 100644
+--- a/src/click/core.py
++++ b/src/click/core.py
+@@ -1169,8 +1169,18 @@ class Command:
+             # Avoid circular import.
+             from .decorators import help_option
+ 
+-            # Apply help_option decorator and pop resulting option
+-            help_option(*help_option_names)(self)
++            # Apply help_option decorator and pop resulting option. If a
++            # positional argument already claims the name derived from the
++            # help flag, store the help value under a distinct name so the
++            # argument keeps its value.
++            decls = list(help_option_names)
++            derived = max(help_option_names, key=len).lstrip("-").replace("-", "_")
++            if any(
++                isinstance(param, Argument) and param.name == derived
++                for param in self.params
++            ):
++                decls.append(f"_{derived}_option")
++            help_option(*decls)(self)
+             self._help_option = self.params.pop()  # type: ignore[assignment]
+ 
+         return self._help_option

@@ -1,0 +1,32 @@
+{
+  "id": "cli-2421",
+  "repo": "cli",
+  "upstream_repo": "urfave/cli",
+  "fork_url": "https://github.com/cognitiontesting22-create/cli",
+  "branch": "eval/cli-2421-base",
+  "base_sha": "dfcc6ec88024dfce2c191036cc1b5611a1ec51d4",
+  "merge_sha": "69b39a411e1424d4fc3550a5d618cab5f20c5c7b",
+  "upstream_pr": "https://github.com/urfave/cli/pull/2421",
+  "upstream_issue": "https://github.com/urfave/cli/issues/2420",
+  "merged_at": "2026-09-04T14:05:37Z",
+  "difficulty": "medium",
+  "spare": false,
+  "language": "Go",
+  "toolchain": {
+    "go": "1.22.12 linux/amd64"
+  },
+  "test_command": "go test ./...",
+  "hidden_test_fails_at_base": true,
+  "hidden_test_passes_at_merge": true,
+  "hidden_test_fails_on_probe": true,
+  "probe_description": "Walks all ancestors collecting persistent flags but ignores shadowing, so a same-named flag defined on both root and an intermediate (or the command itself) is listed twice / the shadowed ancestor copy is shown.",
+  "spoilers_stripped": [
+    "Issue's root-cause paragraph naming VisiblePersistentFlags()/ParseFlags() with source links and line numbers",
+    "PR body's 'traverse the command ancestry' and 'reuse the parser's flag lookup' description",
+    "PR/issue numbers and links"
+  ],
+  "trace_source": "none, built from PR and issue",
+  "mcp_removed": [],
+  "timeout_minutes": 45,
+  "prompt_word_count": 295
+}
